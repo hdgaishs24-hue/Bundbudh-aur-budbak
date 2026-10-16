@@ -1,0 +1,200 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "accountType": { "type": "string", "enum": ["google", "anonymous"] },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string" },
+        "lastLogin": { "type": "string" }
+      },
+      "required": ["uid", "accountType", "createdAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized administrator record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 150 },
+        "role": { "type": "string", "enum": ["admin", "superadmin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Series": {
+      "title": "Series",
+      "description": "Cartoon series or show metadata",
+      "type": "object",
+      "properties": {
+        "seriesId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "posterUrl": { "type": "string", "maxLength": 1000 },
+        "bannerUrl": { "type": "string", "maxLength": 1000 },
+        "genre": { "type": "string", "maxLength": 100 },
+        "releaseYear": { "type": "string", "maxLength": 10 },
+        "language": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "maxLength": 50 },
+        "featured": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "displayOrder": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["seriesId", "title", "published"]
+    },
+    "Season": {
+      "title": "Season",
+      "description": "Season within a cartoon series",
+      "type": "object",
+      "properties": {
+        "seasonId": { "type": "string", "maxLength": 128 },
+        "seriesId": { "type": "string", "maxLength": 128 },
+        "seasonNumber": { "type": "number" },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "posterUrl": { "type": "string", "maxLength": 1000 },
+        "bannerUrl": { "type": "string", "maxLength": 1000 },
+        "releaseDate": { "type": "string", "maxLength": 50 },
+        "published": { "type": "boolean" },
+        "displayOrder": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["seasonId", "seriesId", "seasonNumber", "title", "published"]
+    },
+    "Episode": {
+      "title": "Episode",
+      "description": "Episode details, video link, and metadata",
+      "type": "object",
+      "properties": {
+        "episodeId": { "type": "string", "maxLength": 128 },
+        "seriesId": { "type": "string", "maxLength": 128 },
+        "seasonId": { "type": "string", "maxLength": 128 },
+        "episodeNumber": { "type": "number" },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "thumbnailUrl": { "type": "string", "maxLength": 1000 },
+        "bannerUrl": { "type": "string", "maxLength": 1000 },
+        "videoSourceType": { "type": "string", "enum": ["direct", "storage", "googledrive"] },
+        "videoUrl": { "type": "string", "maxLength": 2000 },
+        "storagePath": { "type": "string", "maxLength": 500 },
+        "duration": { "type": "string", "maxLength": 50 },
+        "releaseDate": { "type": "string", "maxLength": 50 },
+        "published": { "type": "boolean" },
+        "viewsCount": { "type": "number" },
+        "likesCount": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["episodeId", "seriesId", "seasonId", "episodeNumber", "title", "published"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "User comments on an episode",
+      "type": "object",
+      "properties": {
+        "commentId": { "type": "string", "maxLength": 128 },
+        "episodeId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 100 },
+        "userAvatar": { "type": "string", "maxLength": 500 },
+        "text": { "type": "string", "maxLength": 1000 },
+        "parentId": { "type": "string", "maxLength": 128 },
+        "reported": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["commentId", "episodeId", "userId", "userName", "text", "createdAt"]
+    },
+    "Reaction": {
+      "title": "Reaction",
+      "description": "User reaction to an episode",
+      "type": "object",
+      "properties": {
+        "episodeId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "reactionType": { "type": "string", "enum": ["love", "funny", "amazing", "surprised", "like"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["episodeId", "userId", "reactionType"]
+    },
+    "WatchHistory": {
+      "title": "WatchHistory",
+      "description": "User watch progress for resume playback",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "episodeId": { "type": "string", "maxLength": 128 },
+        "seriesId": { "type": "string", "maxLength": 128 },
+        "progressSeconds": { "type": "number" },
+        "durationSeconds": { "type": "number" },
+        "percentage": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "episodeId", "progressSeconds"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Platform branding and customization settings",
+      "type": "object",
+      "properties": {
+        "appName": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 1000 },
+        "faviconUrl": { "type": "string", "maxLength": 1000 },
+        "heroBannerUrl": { "type": "string", "maxLength": 1000 },
+        "accentColor": { "type": "string", "maxLength": 50 },
+        "welcomeMessage": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["appName"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Authorized administrators"
+    },
+    "/series/{seriesId}": {
+      "schema": "Series",
+      "description": "Cartoon series collections"
+    },
+    "/seasons/{seasonId}": {
+      "schema": "Season",
+      "description": "Seasons within series"
+    },
+    "/episodes/{episodeId}": {
+      "schema": "Episode",
+      "description": "Episodes catalog"
+    },
+    "/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Episode comments"
+    },
+    "/reactions/{reactionId}": {
+      "schema": "Reaction",
+      "description": "Episode reactions"
+    },
+    "/watchHistory/{historyId}": {
+      "schema": "WatchHistory",
+      "description": "Watch progress tracking"
+    },
+    "/appSettings/{settingId}": {
+      "schema": "AppSettings",
+      "description": "Platform settings and branding"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "BUNDBUDH AUR BUDBAK",
+  "description": "Premium Cartoon Streaming OTT Platform for Bundbudh Aur Budbak animated series with full episode player, seasons, reactions, comments, and cloud content management.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
